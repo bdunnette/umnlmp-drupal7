@@ -1,0 +1,3 @@
+[submodule "wp-content/themes/umnlmp"]
+	path = wp-content/themes/umnlmp
+	url = git@github.com:bdunnette/lmp-wordpress-theme.git
