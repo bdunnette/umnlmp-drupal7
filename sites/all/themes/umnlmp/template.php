@@ -5,7 +5,7 @@
  * Outputs Foundation Nav bar http://foundation.zurb.com/docs/navigation.php
  * 
  */
-//function STARTER_links__system_main_menu($vars) {
+//function umnlmp_links__system_main_menu($vars) {
 //  // Get all the main menu links
 //  $menu_links = menu_tree_output(menu_tree_all_data('main-menu'));
 //  
@@ -43,7 +43,7 @@
  * Implements template_preprocess_html().
  * 
  */
-//function STARTER_preprocess_html(&$vars) {
+//function umnlmp_preprocess_html(&$vars) {
 //  // Add conditional CSS for IE. To use uncomment below and add IE css file
 //  drupal_add_css(path_to_theme() . '/css/ie.css', array('weight' => CSS_THEME, 'browsers' => array('!IE' => FALSE), 'preprocess' => FALSE));
 //  
@@ -55,20 +55,20 @@
  * Implements template_preprocess_page
  *
  */
-//function STARTER_preprocess_page(&$vars) {
+//function umnlmp_preprocess_page(&$vars) {
 //}
 
 /**
  * Implements template_preprocess_node
  *
  */
-//function STARTER_preprocess_node(&$vars) {
+//function umnlmp_preprocess_node(&$vars) {
 //}
 
 /**
  * Implements hook_preprocess_block()
  */
-//function STARTER_preprocess_block(&$vars) {
+//function umnlmp_preprocess_block(&$vars) {
 //  // Add wrapping div with global class to all block content sections.
 //  $vars['content_attributes_array']['class'][] = 'block-content';
 //  
@@ -108,28 +108,28 @@
 //  }
 //}
 
-//function STARTER_preprocess_views_view(&$vars) {
+//function umnlmp_preprocess_views_view(&$vars) {
 //}
 
 /**
  * Implements template_preprocess_panels_pane().
  *
  */
-//function STARTER_preprocess_panels_pane(&$vars) {
+//function umnlmp_preprocess_panels_pane(&$vars) {
 //}
 
 /**
  * Implements template_preprocess_views_views_fields().
  *
  */
-//function STARTER_preprocess_views_view_fields(&$vars) {
+//function umnlmp_preprocess_views_view_fields(&$vars) {
 //}
 
 /**
  * Status messages in reveal modal
  *
  */
-//function STARTER_status_messages($vars) {
+//function umnlmp_status_messages($vars) {
 //  $display = $vars['display'];
 //  $output = ''; 
 //
@@ -169,7 +169,7 @@
  * Implements theme_form_element_label()
  * Use foundation tooltips
  */
-//function STARTER_form_element_label($vars) {
+//function umnlmp_form_element_label($vars) {
 //  if (!empty($vars['element']['#title'])) {
 //    $vars['element']['#title'] = '<span class="secondary label">' . $vars['element']['#title'] . '</span>';
 //  }
@@ -182,7 +182,7 @@
 /**
  * Implements hook_preprocess_button().
  */
-//function STARTER_preprocess_button(&$vars) {
+//function umnlmp_preprocess_button(&$vars) {
 //  $vars['element']['#attributes']['class'][] = 'button';
 //  if (isset($vars['element']['#parents'][0]) && $vars['element']['#parents'][0] == 'submit') {
 //    $vars['element']['#attributes']['class'][] = 'secondary';
@@ -193,7 +193,7 @@
  * Implements hook_form_alter()
  * Example of using foundation sexy buttons
  */
-//function STARTER_form_alter(&$form, &$form_state, $form_id) {
+//function umnlmp_form_alter(&$form, &$form_state, $form_id) {
 //  // Sexy submit buttons
 //  if (!empty($form['actions']) && !empty($form['actions']['submit'])) {
 //    $form['actions']['submit']['#attributes'] = array('class' => array('primary', 'button', 'radius'));
@@ -201,6 +201,6 @@
 //}
 
 // Sexy preview buttons
-//function STARTER_form_comment_form_alter(&$form, &$form_state) {
+//function umnlmp_form_comment_form_alter(&$form, &$form_state) {
 //  $form['actions']['preview']['#attributes']['class'][] = array('class' => array('secondary', 'button', 'radius'));
 //}
