@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
 
 @media(min-width: 980px) {
   body {
@@ -200,4 +201,8 @@ e.g. multipage*/
 
 .form-actions{
   clear: both;
+}
+
+h1 {
+  font-family:'Source Sans Pro',sans-serif;
 }
