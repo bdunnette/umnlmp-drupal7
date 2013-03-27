@@ -1,0 +1,11 @@
+Version 7.x-1.x
+  Fixed translate.drupal.org warning messages
+  Added GoogleAnalytics support
+  Added Views support
+  Added CustomBreadcrumbs support
+
+Version 7.x-1.2
+  Issue #1286234 by thePanz: Provide "Settings" link in module listing table
+  Issue #1205384 by thePanz: fixed issues with Drupal CSS compressor
+  Issue -NA- by thePanz: fixes "Site Information" admin icons, documentation added
+  Issue -NA- by thePanz: fixed admin icons for Seven, Bartik and Garland 7.x themes
