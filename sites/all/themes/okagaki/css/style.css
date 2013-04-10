@@ -35,17 +35,18 @@ h3 {
 	font-size: 1.4em;
 }
 
-.colored {
+.colored, .views-field-field-name {
 	color: #7a0019;
 }
 
-.views-field-field-name {
+.views-field-field-name, .views-label {
 	font-weight: bold;
 }
 
 /* ----- Links ----------------------- */
-a {color: #7a0019;}
+a, .biblio-title a {color: #7a0019;}
 a:hover {color: #5b0013;}
+
 
 /* ----- Lists ----------------------- */
 /* ----- Tables ---------------------- */
@@ -213,6 +214,7 @@ background-color: #616365;
 
 .node-training-site img, .views-view-grid img {
     float: left;
+    margin-right: 10px;
     padding: 4px;
     border: 1px solid rgb(221,221,221);
     border-radius: 4px;
