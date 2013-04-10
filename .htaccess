@@ -134,7 +134,7 @@ DirectoryIndex index.php index.html index.htm
   </IfModule>
 </IfModule>
 
-#AuthType Shibboleth
-#ShibRequireSession Off
-#ShibUseHeaders On
-#require shibboleth
+AuthType Shibboleth
+ShibRequireSession Off
+ShibUseHeaders On
+require shibboleth

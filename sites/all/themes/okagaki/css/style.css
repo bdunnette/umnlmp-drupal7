@@ -39,6 +39,10 @@ h3 {
 	color: #7a0019;
 }
 
+.views-field-field-name {
+	font-weight: bold;
+}
+
 /* ----- Links ----------------------- */
 a {color: #7a0019;}
 a:hover {color: #5b0013;}
@@ -66,6 +70,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7a0019', end
 	padding-top: 20px;
 	padding-bottom: 5px;
 	text-align: left;
+}
+
+.views-view-grid.cols-2 {
+    width: 100%;
+}
+.cols-2 .col-1, .cols-2 .col-2 {
+    width: 50%;
 }
 /* ----- Forms ----------------------- */
 /* Change glow/highlight on form fields to UMN gold */
@@ -200,14 +211,12 @@ background-color: #616365;
   float: right;
 }
 
-.node-training-site img {
+.node-training-site img, .views-view-grid img {
     float: left;
     padding: 4px;
-    margin: 10px;
-    
     border: 1px solid rgb(221,221,221);
     border-radius: 4px;
-}
+}   
 
 /* ICONS ********************************* */
 
