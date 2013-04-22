@@ -190,6 +190,31 @@ function httprl_cron() {
 }
 
 /**
+ * Queue and send off http request.
+ *
+ * @see drupal_http_request()
+ *
+ * This is a flexible and powerful HTTP client implementation. Correctly
+ * handles GET, POST, PUT or any other HTTP requests.
+ *
+ * @param $urls
+ *   A string containing a fully qualified URI.
+ * @param array $options
+ *   (optional) An array of options.
+ *
+ * @return Object
+ *   The request object.
+ */
+function httprl_override_core($url, $options) {
+  // Queue up the request.
+  httprl_request($url, $options);
+  // Execute request.
+  $request = httprl_send_request();
+  // Send back results.
+  return $request[$url];
+}
+
+/**
  * Helper function to build an URL for asynchronous requests to self.
  *
  * @param $path
@@ -591,9 +616,8 @@ function httprl_handle_data(&$options) {
   // or PUT request. Some non-standard servers get confused by Content-Length in
   // at least HEAD/GET requests, and Squid always requires Content-Length in
   // POST/PUT requests.
-  $content_length = httprl_strlen($options['data']);
-  if ($content_length > 0 || $options['method'] == 'POST' || $options['method'] == 'PUT') {
-    $options['headers']['Content-Length'] = $content_length;
+  if (strlen($options['data']) > 0 || $options['method'] == 'POST' || $options['method'] == 'PUT') {
+    $options['headers']['Content-Length'] = httprl_strlen($options['data']);
   }
 }
 
@@ -1312,7 +1336,7 @@ function httprl_send_request($results = NULL) {
 
         // Read socket.
         $chunk = fread($r, $responses[$id]->chunk_size);
-        if (httprl_strlen($chunk) > 0) {
+        if (strlen($chunk) > 0) {
           $rw_done = TRUE;
           if (!isset($responses[$id]->time_to_first_byte)) {
             // Calculate Time to First Byte.
@@ -1372,7 +1396,7 @@ function httprl_send_request($results = NULL) {
 
         // Get stream data.
         $info = stream_get_meta_data($r);
-        $alive = !$info['eof'] && !feof($r) && !$info['timed_out'] && httprl_strlen($chunk);
+        $alive = !$info['eof'] && !feof($r) && !$info['timed_out'] && strlen($chunk);
         if (!$alive) {
           if ($responses[$id]->status == 'Connecting.') {
             $responses[$id]->error = $t('Connection refused by destination. TCP.');
@@ -2013,6 +2037,9 @@ function httprl_queue_background_callback(&$args, &$result = NULL) {
   if (isset($callback_options['options']) && is_array($callback_options['options'])) {
     $options += $callback_options['options'];
   }
+  if (empty($options['headers']['Host']) && !empty($_SERVER['HTTP_HOST'])) {
+    $options['headers']['Host'] = $_SERVER['HTTP_HOST'];
+  }
   // Send Request.
   return httprl_request($url, $options);
 }
@@ -2402,7 +2429,7 @@ function httprl_lock_release($name) {
 function httprl_print_empty(&$data, $level = 0) {
   $level++;
   if ($level < 10 ) {
-    if (is_object($data)) {
+    if (is_object($data) && !method_exists($data, '__set')) {
       foreach ($data as $key => $values) {
         $data->{$key} = httprl_print_empty($values, $level);
       }

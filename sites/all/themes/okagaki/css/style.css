@@ -172,7 +172,7 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px #ffcc33;
 /* NAVIGATION ***************************** */
 /* ----- Main Navigation ------------- */
 
-.navbar-inverse .navbar-inner {
+.navbar-inverse .navbar-inner, .navbar .navbar-inner {
 	background: #900021; /* Old browsers */
 	background: -moz-linear-gradient(top, #900021 0%, #5b0013 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#900021), color-stop(100%,#5b0013)); /* Chrome,Safari4+ */
@@ -184,15 +184,23 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px #ffcc33;
 
 }
 
-.navbar-inverse .nav>li>a {
+.navbar-inverse .nav > li >a, .navbar .nav > li >a {
 	color: #ebebeb;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
 }
 
-.navbar-inverse .nav>.active>a, .navbar-inverse .nav>.active>a:hover, .navbar-inverse .nav>.active>a:focus, .navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle  {
-	background-color: #900021;
+.navbar-inverse .nav > .active > a, .navbar-inverse .nav>.active>a:hover, .navbar-inverse .nav>.active>a:focus, .navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle, .navbar .nav > .active > a, .navbar .nav > li > a:focus, .navbar .nav > li > a:hover, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus, .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle  {
+	color: #ebebeb;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+	background-color: #900021;	
 }
 
-.dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a {
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a, .dropdown-menu li > .active:hover {
+	color: #7a0019;
+	background: #ffde7a;
+}
+
+.dropdown-menu li > .active {
     background: #900021; /* Old browsers */
 	background: -moz-linear-gradient(top, #900021 0%, #5b0013 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#900021), color-stop(100%,#5b0013)); /* Chrome,Safari4+ */
@@ -203,7 +211,7 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px #ffcc33;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#900021', endColorstr='#5b0013',GradientType=0 ); /* IE6-9 */
 }
 
-.nav .dropdown-toggle .caret {
+.navbar .nav li.dropdown.open > .dropdown-toggle .caret, .navbar .nav li.dropdown.active > .dropdown-toggle .caret, .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret  {
 	border-top-color: #616365;
 	border-bottom-color: #616365;
 }

@@ -177,7 +177,6 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     $entity->date_id = array();
     $start = NULL;
     $end   = NULL;
-    $lang = $entity->language;
     $delta = isset($row->$delta_field) ? $row->$delta_field : 0;
     if ($is_field) {
       $items = field_get_items($this->entity_type, $entity, $field_name);
@@ -228,7 +227,7 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     // If the user specified a LOCATION field, pull that data from the entity.
     $location = '';
     if (!empty($this->options['location_field']) && $this->options['location_field'] != 'none') {
-      $location_fields = date_ical_get_location_fields();
+      $location_fields = date_ical_get_location_fields($this->base_table);
       $location_info = $location_fields['name'][$this->options['location_field']];
       $location_field_name = $location_info['real_field_name'];
       
@@ -321,7 +320,9 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     // Pull the 'changed' date from the entity, so that subscription clients can tell if the event has been updated.
     // According to the iCal standard, LAST-MODIFIED must be UTC. Fortunately, Drupal stores timestamps in the DB
     // as UTC, so we just need to specify that UTC be used rather than the server's local timezone.
-    $event['last-modified'] = new DateObject($entity->changed, new DateTimeZone('UTC'));
+    if (isset($entity->changed)) {
+      $event['last-modified'] = new DateObject($entity->changed, new DateTimeZone('UTC'));
+    }
     
     // Allow other modules to alter the structured event object, before it gets converted to an iCal VEVENT.
     drupal_alter('date_ical_feed_event_render', $event, $this->view, $context);

@@ -10,7 +10,27 @@ function open_framework_preprocess_html(&$vars) {
   $vars['body_bg_path'] = theme_get_setting('body_bg_path'); 
 }
 
-function open_framework_preprocess_page(&$vars) {
+function open_framework_js_alter(&$javascript) {
+  // Update jquery version for non-administration pages
+  if (arg(0) != 'admin' && arg(0) != 'panels' && arg(0) != 'ctools') {
+    $jquery_file = drupal_get_path('theme', 'open_framework') . '/js/jquery-1.9.1.min.js';
+    $jquery_version = '1.9.1';
+    $migrate_file = drupal_get_path('theme', 'open_framework') . '/js/jquery-migrate-1.1.1.min.js';
+    $migrate_version = '1.1.1';
+    $javascript['misc/jquery.js']['data'] = $jquery_file;
+    $javascript['misc/jquery.js']['version'] = $jquery_version;
+    $javascript['misc/jquery.js']['weight'] = 0;
+    $javascript['misc/jquery.js']['group'] = -101;
+    drupal_add_js($migrate_file);
+    if (isset($javascript["$migrate_file"])) {
+      $javascript["$migrate_file"]['version'] = $migrate_version;
+      $javascript["$migrate_file"]['weight'] = 1;
+      $javascript["$migrate_file"]['group'] = -101;
+    }
+  }
+}
+
+function open_framework_preprocess_page(&$vars) { 
   // Add page template suggestions based on the aliased path. For instance, if the current page has an alias of about/history/early, we'll have templates of:
   // page-about-history-early.tpl.php, page-about-history.tpl.php, page-about.tpl.php
   // Whichever is found first is the one that will be used.
@@ -50,6 +70,9 @@ function open_framework_preprocess_page(&$vars) {
 
   // Replace tabs with drop down version
   $vars['tabs']['#primary'] = _bootstrap_local_tasks($vars['tabs']['#primary']);
+  
+  // Add variable for site title
+  $vars['my_site_title'] = variable_get('site_name');
   
 }
 
@@ -200,8 +223,11 @@ function open_framework_status_messages($variables) {
   foreach (drupal_get_messages($display) as $type => $messages) {
     $class = (isset($status_class[$type])) ? ' alert-' . $status_class[$type] : '';
     $output .= "<div class=\"alert alert-block$class\">\n";
+	
+    if (arg(0) != 'admin' && arg(0) != 'panels' && arg(0) != 'ctools') {
     $output .= "  <a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>\n";
-
+	}
+	
     if (!empty($status_heading[$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";
     }
@@ -223,12 +249,20 @@ function open_framework_status_messages($variables) {
 }
 
 /* Search Form Block */
+function search_preprocess_block(&$variables) {
+  if ($variables['block']->module == 'search') {
+    $variables['attributes_array']['role'] = 'search';
+  }
+}
+
 function open_framework_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title_display'] = 'invisible';
     $form['search_block_form']['#attributes']['class'][] = 'input-medium search-query';
-	$form['search_block_form']['#attributes']['placeholder'] = t('Search this site...');
-    $form['actions']['submit']['#attributes']['class'][] = 'btn btn-search';
+    $form['search_block_form']['#attributes']['placeholder'] = t('Search this site...');
+    $form['actions']['submit']['#attributes']['class'][] = 'btn-search';
+    $form['actions']['submit']['#type'] = 'image_button';
+    $form['actions']['submit']['#src'] = drupal_get_path('theme', 'open_framework') . '/images/searchbutton.png';
   }
 }
 
@@ -281,35 +315,58 @@ function open_framework_menu_tree(&$vars) {
   return '<ul class="menu nav">' . $vars['tree'] . '</ul>';
 }
 
+/*
+ * Implements hook_menu_link
+ * Apply bootstrap menu classes to all menu blocks in the 
+ * navigation region and the main-menu block by default.
+ * Note: if a menu is in the navigation and somewhere else as well,
+ *       both instances of the menu will have the classes applied,
+ *       not just the one in the navigation
+ */
+
 function open_framework_menu_link(array $vars) {
+
   $element = $vars['element'];
-  $sub_menu = '';
-  
-  if ($element['#below']) {
-    // Ad our own wrapper
-    unset($element['#below']['#theme_wrappers']);
-    $sub_menu = '<ul class="dropdown-menu">' . drupal_render($element['#below']) . '</ul>';
-    $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
-    $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
 
-    // Check if this element is nested within another
-    if ((!empty($element['#original_link']['depth'])) && ($element['#original_link']['depth'] > 1)) {
+  if (open_framework_is_in_nav_menu($element)) {
+    $sub_menu = '';
+
+    if ($element['#below']) {
+      // Add our own wrapper
+      unset($element['#below']['#theme_wrappers']);
+      $sub_menu = '<ul class="dropdown-menu">' . drupal_render($element['#below']) . '</ul>';
+      $element['#localized_options']['attributes']['class'][] = 'dropdown-toggle';
+      $element['#localized_options']['attributes']['data-toggle'] = 'dropdown';
+
+      // Check if this element is nested within another
+      if ((!empty($element['#original_link']['depth'])) && ($element['#original_link']['depth'] > 1)) {
       // Generate as dropdown submenu
-      $element['#attributes']['class'][] = 'dropdown-submenu';
-    }
-    else {
-      // Generate as standard dropdown
-      $element['#attributes']['class'][] = 'dropdown';
-      $element['#localized_options']['html'] = TRUE;
-      $element['#title'] .= ' <span class="caret"></span>';
+        $element['#attributes']['class'][] = 'dropdown-submenu';
+      }
+      else {
+        // Generate as standard dropdown
+        $element['#attributes']['class'][] = 'dropdown';
+        $element['#localized_options']['html'] = TRUE;
+        $element['#title'] .= ' <span class="caret"></span>';
+      }
+
+      // Set dropdown trigger element to # to prevent inadvertant page loading with submenu click
+      $element['#localized_options']['attributes']['data-target'] = '#';
     }
 
-    // Set dropdown trigger element to # to prevent inadvertant page loading with submenu click
-    $element['#localized_options']['attributes']['data-target'] = '#';
+    $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+    return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+
+  } else {
+    $element = $vars['element'];
+    $sub_menu = '';
+
+    if ($element['#below']) {
+      $sub_menu = drupal_render($element['#below']);
+    }
+    $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+    return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
   }
-  
-  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
-  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
 }
 
 /**
@@ -421,4 +478,98 @@ function open_framework_item_list($variables) {
   }
  
   return $output;
+}
+
+/*
+ *  Find out if an element (a menu link) is a link displayed in the
+ *  navigation region for the user. We return true by default if this is a 
+ *  menu link in the main-menu. Open Framework treats the main-menu
+ *  as being in the navigation by default.
+ *  We are using the theming functions to figure out the block IDs.
+ *  The block IDs aren't passed to this function, but theming function names are,
+ *  and those are baed on the block ID.
+ *
+ */
+
+function open_framework_is_in_nav_menu($element) {
+
+  // #theme holds one or more suggestions for theming function names for the link
+  // simplify things by casting into an array
+  $link_theming_functions = (array)$element['#theme'];
+
+  // Avoid calculating this more than once
+  $nav_theming_functions = &drupal_static(__FUNCTION__);
+
+  // if not done yet, calculate the names of the theming function for all the blocks
+  // in the navigation region
+
+  if (!isset($nav_theming_functions)) {
+
+    // get all blocks in the navigation region
+    $blocks = block_list('navigation');
+
+	// Blocks placed using the context module don't show up using Drupal's block_list
+	// If context is enabled, see if it has placed any blocks in the navigation area
+	// See: http://drupal.org/node/785350
+    $context_blocks = array();
+	
+	if (module_exists('context')) {
+	  $reaction_block_plugin = context_get_plugin('reaction', 'block');
+	  $context_blocks = $reaction_block_plugin->block_list('navigation');
+	}
+
+    $blocks = array_merge($blocks, $context_blocks);
+
+    // extract just their IDs (<module>_<delta>)
+    $ids = array_keys($blocks);
+
+    // translate the ids into function names for comparison purposes
+    $nav_theming_functions = array_map('open_framework_block_id_to_function_name', $ids);
+
+  }
+
+  // if there is nothing in the navigation section, the main menu is added automatically, so
+  // we watch for that.
+  // 'menu_link__main_menu' is the theming function name for the main-menu
+  if ((empty($nav_theming_functions)) && (in_array('menu_link__main_menu', $link_theming_functions))) {
+    return TRUE;
+  };
+
+  // Find out if any of the theming functions for the blocks are the same
+  // as the theming functions for the link.
+  $intersect = array_intersect($nav_theming_functions, $link_theming_functions);
+  if ((!empty($intersect))) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/*
+ *  Convert a block id to a theming function name
+ */
+
+function open_framework_block_id_to_function_name ($id) {
+  // if a system block, remove 'system_'
+  $id = str_replace('system_', '', $id);
+
+  // recognize menu and block_menu module blocks
+  if (strpos($id, 'menu_block_') === false) {
+    // if a menu block but not a menu_block block, remove menu_
+    $id = str_replace('menu_',       '', $id);
+  }
+  else {
+    // if a menu_block block, keep menu_block, but add an
+	// underscore. Not sure why this is different from other
+	// core modules
+    $id = str_replace('menu_block_', 'menu_block__', $id);
+  } 
+
+  // massage the id to looks like a theming function name
+  // use the same function used to create the name of theming function
+  $id = strtr($id, '-', '_');
+  $name = 'menu_link__' . $id;
+
+  return $name;
 }
