@@ -32,10 +32,13 @@ DirectoryIndex index.php index.html index.htm
   php_value mbstring.http_input             pass
   php_value mbstring.http_output            pass
   php_flag mbstring.encoding_translation    off
+<<<<<<< HEAD
   php_value upload_max_filesize 	    100M
   php_value post_max_size                   100M
   php_value memory_limit                    512M
   php_value apc.rfc1867 		    "1"
+=======
+>>>>>>> 09be74310ad83bc96ee41a5b49566b138fee893c
 </IfModule>
 
 # Requires mod_expires to be enabled.
@@ -138,7 +141,7 @@ DirectoryIndex index.php index.html index.htm
   </IfModule>
 </IfModule>
 
-AuthType Shibboleth
-ShibRequireSession Off
-ShibUseHeaders On
-require shibboleth
+#AuthType Shibboleth
+#ShibRequireSession Off
+#ShibUseHeaders On
+#require shibboleth
