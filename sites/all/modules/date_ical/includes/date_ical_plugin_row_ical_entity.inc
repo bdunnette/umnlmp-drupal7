@@ -177,7 +177,6 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     $entity->date_id = array();
     $start = NULL;
     $end   = NULL;
-    $lang = $entity->language;
     $delta = isset($row->$delta_field) ? $row->$delta_field : 0;
     if ($is_field) {
       $items = field_get_items($this->entity_type, $entity, $field_name);
@@ -228,7 +227,7 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     // If the user specified a LOCATION field, pull that data from the entity.
     $location = '';
     if (!empty($this->options['location_field']) && $this->options['location_field'] != 'none') {
-      $location_fields = date_ical_get_location_fields();
+      $location_fields = date_ical_get_location_fields($this->base_table);
       $location_info = $location_fields['name'][$this->options['location_field']];
       $location_field_name = $location_info['real_field_name'];
       
@@ -236,13 +235,21 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
       $items = field_get_items($this->entity_type, $entity, $location_field_name);
       if ($items) {
         $location_field = $items[$delta];
-        
         if ($location_info['type'] == 'node_reference') {
           // Make sure this Node Reference actually references a node.
           if ($location_field['nid']) {
             $node = node_load($location_field['nid']);
             $location = check_plain($node->title);
           }
+        }
+        elseif ($location_info['type'] == 'addressfield') {
+          $locations = array();
+          foreach($location_field as $key => $loc) {
+            if ($loc && !in_array($key, array('first_name', 'last_name'))) {
+              $locations[] = $loc;
+            }
+          }
+          $location = implode(', ', array_reverse($locations));
         }
         else {
           $location = check_plain($location_field['value']);
@@ -299,8 +306,8 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     drupal_alter('date_ical_html', $data, $this->view, $context);
     
     $event = array();
-    $event['summary'] = trim(drupal_html_to_text($data['summary']));
-    $event['description'] = trim(drupal_html_to_text($data['description']));
+    $event['summary'] = date_ical_format_text($data['summary']);
+    $event['description'] = date_ical_format_text($data['description']);
     $event['all_day'] = $all_day;
     $event['start'] = $start;
     $event['end'] = $end;
@@ -321,7 +328,9 @@ class date_ical_plugin_row_ical_entity extends views_plugin_row {
     // Pull the 'changed' date from the entity, so that subscription clients can tell if the event has been updated.
     // According to the iCal standard, LAST-MODIFIED must be UTC. Fortunately, Drupal stores timestamps in the DB
     // as UTC, so we just need to specify that UTC be used rather than the server's local timezone.
-    $event['last-modified'] = new DateObject($entity->changed, new DateTimeZone('UTC'));
+    if (isset($entity->changed)) {
+      $event['last-modified'] = new DateObject($entity->changed, new DateTimeZone('UTC'));
+    }
     
     // Allow other modules to alter the structured event object, before it gets converted to an iCal VEVENT.
     drupal_alter('date_ical_feed_event_render', $event, $this->view, $context);
