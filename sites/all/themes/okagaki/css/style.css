@@ -55,7 +55,7 @@ h3 {
 	font-weight: bold;
 }
 
-.node-training-site .field-type-text-long, .node-training-site .field-type-phone, .node-training-site .field-type-url, node-training-site .field-type-text-with-summary {
+.node-training-site .field-type-text-long, .node-training-site .field-type-phone, .node-training-site .field-type-url, .node-training-site .field-type-link-field, .node-training-site .field-type-location, .node-training-site .field-type-text-with-summary {
 	padding-left: 240px;
 }
 
