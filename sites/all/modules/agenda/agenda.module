@@ -344,7 +344,9 @@ function _agenda_parse_event($xml, $block) {
   $event = array();
   $event['title']           = htmlspecialchars((string) $xml->title);
   $event['where']           = htmlspecialchars((string) $gd->where->attributes()->valueString);
-  $event['description']     = _filter_autop(filter_xss((string) $xml->content));
+  //$event['description']     = _filter_autop(filter_xss((string) $xml->content));
+  // Convert URLs in description to clickable links - dunn0172@umn.edu 2013/04/29
+  $event['description']     = _filter_autop(ereg_replace("[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]","<a href=\"\\0\">\\0</a>", filter_xss((string) $xml->content)));
   $event['timezone']        = $block->timezone;
 
   $event['start original']  = (string) $gd->when->attributes()->startTime;
