@@ -4,3 +4,6 @@
 [submodule "sites/all/themes/zurb-foundation"]
 	path = sites/all/themes/zurb-foundation
 	url = http://git.drupal.org/project/zurb-foundation.git
+[submodule "sites/all/themes/okagaki"]
+	path = sites/all/themes/okagaki
+	url = git@github.com:bdunnette/umnlmp-drupal-theme.git
