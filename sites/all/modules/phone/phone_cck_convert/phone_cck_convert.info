@@ -6,9 +6,9 @@ dependencies[] = phone
 dependencies[] = cck_phone
 
 
-; Information added by drupal.org packaging script on 2013-04-11
+; Information added by drupal.org packaging script on 2013-05-25
 version = "7.x-2.x-dev"
 core = "7.x"
 project = "phone"
-datestamp = "1365644082"
+datestamp = "1369449998"
 

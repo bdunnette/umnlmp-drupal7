@@ -1,0 +1,66 @@
+
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_97e6b04518bcad21c5474801cbc4ad4e40550fea" entityID="https://residency.pathology.umn.edu/shibboleth">
+
+  <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:1.0:protocol">
+    <md:Extensions>
+      <init:RequestInitiator xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Binding="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Location="https://residency.pathology.umn.edu/Shibboleth.sso/Login"/>
+    </md:Extensions>
+    <md:KeyDescriptor>
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>residency.pathology.umn.edu</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509SubjectName>CN=residency.pathology.umn.edu</ds:X509SubjectName>
+          <ds:X509Certificate>MIIDJDCCAgygAwIBAgIJAJztKePiTFb8MA0GCSqGSIb3DQEBBQUAMCoxKDAmBgNV
+BAMTH3BhdGhvbG9neS1yZXNpZGVuY3kub2l0LnVtbi5lZHUwHhcNMTMwMzI1MTgx
+NjUyWhcNMjMwMzIzMTgxNjUyWjAqMSgwJgYDVQQDEx9wYXRob2xvZ3ktcmVzaWRl
+bmN5Lm9pdC51bW4uZWR1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+4wySo5pwqbg3zAIO7XA05n2PK662cF1W1J5Ioj5eN1MOKPL+Ike+Uckn8xIEYZSB
+VOxJAFkf4oRT6S5zfbdYcMSc/6EFHMj2LK398Y1eXB1/unkcgU4r8E5u1689kU7r
+aPG5Ro/R4IGU7U2+GKKGZQFtNXGOCgpCgOutH2CEhuUcMWpauzOfRtMDvh16l0l7
+9794lr4QtM89KucWOkDTZnWbdmC/6Tut81kHgXk0B5V0SHDbG7MYTDhPYaGBtkHW
+iygA7+hKKBaNoLlY8rTqCwziQTM3wAgGMqCDevI9H+xEfJTh+LlZFWgdo9nzGRBx
+IUOu3hcYIgSnXsvXi+9jCQIDAQABo00wSzAqBgNVHREEIzAhgh9wYXRob2xvZ3kt
+cmVzaWRlbmN5Lm9pdC51bW4uZWR1MB0GA1UdDgQWBBT/PNsmnEx7DNxBG3sAjSlW
+d+QagDANBgkqhkiG9w0BAQUFAAOCAQEAzkDfGzKnXCpDEKWMJoThNRZZH9hzIOH5
+1gFaeq/ZW/vhqUE1BoautaWp988kiUzyTOBxYf/agg0RMrxsHYMeIL0M3UhMSivp
+IVkOZd2KA868wOkh2yyboqz10ua3rkgSnX2c6YiG0nB9McUv2OkZ4+IDeU0GJuuh
+sG9h46S0h7C3konH8UJ/c1XkJL0OAvkL2rkDTBUzFIYUpV1jeU4V+iSiH9etc37x
+lvYGg3/Oh6Vwi9UHYHKcTmJw/q7NZUngDoPeX73yXuUdT5Qvstr4GH2EOTU3Cma+
+0GbEBzyWuSmvjyYxvaw3QYo95Ue9Pp4fno3Zol8ppTC1lS5tJTcYVA==
+</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://residency.pathology.umn.edu/Shibboleth.sso/Artifact/SOAP" index="1"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SLO/SOAP"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SLO/Redirect"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SLO/POST"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SLO/Artifact"/>
+    <md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://residency.pathology.umn.edu/Shibboleth.sso/NIM/SOAP"/>
+    <md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://residency.pathology.umn.edu/Shibboleth.sso/NIM/Redirect"/>
+    <md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://residency.pathology.umn.edu/Shibboleth.sso/NIM/POST"/>
+    <md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://residency.pathology.umn.edu/Shibboleth.sso/NIM/Artifact"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML2/POST" index="1"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML2/Artifact" index="3"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML2/ECP" index="4"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML/POST" index="5"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://residency.pathology.umn.edu/Shibboleth.sso/SAML/Artifact" index="6"/>
+  </md:SPSSODescriptor>
+
+  <md:Organization> 
+      <md:OrganizationName xml:lang="en">University of Minnesota, Department of Laboratory Medicine and Pathology</md:OrganizationName> 
+      <md:OrganizationDisplayName xml:lang="en">Department of Laboratory Medicine and Pathology</md:OrganizationDisplayName> 
+      <md:OrganizationURL xml:lang="en">http://pathology.umn.edu/</md:OrganizationURL> 
+   </md:Organization> 
+ 
+   <md:ContactPerson contactType="support"> 
+      <md:GivenName>Authentication Support</md:GivenName> 
+      <md:EmailAddress>dunn0172@umn.edu</md:EmailAddress> 
+   </md:ContactPerson> 
+   <md:ContactPerson contactType="administrative"> 
+      <md:GivenName>Brian</md:GivenName> 
+      <md:SurName>Dunnette</md:SurName> 
+      <md:EmailAddress>dunn0172@umn.edu</md:EmailAddress> 
+   </md:ContactPerson>
+</md:EntityDescriptor>
