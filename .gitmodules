@@ -1,0 +1,3 @@
+[submodule "sites/all/themes/okagaki"]
+	path = sites/all/themes/okagaki
+	url = git@github.com:bdunnette/umnlmp-drupal-theme.git
