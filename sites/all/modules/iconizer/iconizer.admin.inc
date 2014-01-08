@@ -66,7 +66,7 @@ function iconizer_admin_form() {
     '#type' => 'checkbox',
     '#title' => t('Overide defaul Drupal7 file field icons directory'),
     '#description' => t('Overrides the default Drupal7 file filed icons (currently set to: %url)', array('%url' => variable_get('file_icon_directory', drupal_get_path('module', 'file') . '/icons'))),
-    '#default_value' => variable_get('iconizer_override_file_icon_directory', FALSE),
+    '#default_value' => variable_get('iconizer_override_file_icon_directory', TRUE),
   );
   
   $form['files_icons']['iconizer_files_icons'] = array(
@@ -161,7 +161,7 @@ function iconizer_admin_form() {
 function iconizer_admin_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   
-  if ($values['iconizer_override_file_icon_directory'] == TRUE && variable_get('iconizer_old_file_icon_directory', '') == '') {
+  if ($values['iconizer_override_file_icon_directory'] == 1 && variable_get('iconizer_old_file_icon_directory', '') == '') {
     // Just overrided!
     $original = variable_get('file_icon_directory', drupal_get_path('module', 'file') . '/icons');
     $new = drupal_get_path('module', 'iconizer') . '/mimetypes';
@@ -169,7 +169,7 @@ function iconizer_admin_form_submit($form, &$form_state) {
     variable_set('file_icon_directory', $new);
     variable_set('iconizer_old_file_icon_directory', $original);
   }
-  elseif ($values['iconizer_override_file_icon_directory'] == FALSE && variable_get('iconizer_old_file_icon_directory', '') != '') {
+  elseif ($values['iconizer_override_file_icon_directory'] == 0 && variable_get('iconizer_old_file_icon_directory', '') != '') {
     // Restore old!
     variable_set('file_icon_directory', variable_get('iconizer_old_file_icon_directory', ''));
     variable_set('iconizer_old_file_icon_directory', '');

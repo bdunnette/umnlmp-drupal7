@@ -63,12 +63,6 @@
 .content .admin-list a[href $='admin/structure/trigger'] { 
    background: url(admin_icons/structure-trigger.png) no-repeat 0 50%;
 }
-.content .admin-list a[href $='admin/structure/views'] { 
-   background: url(admin_icons/structure-views.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/structure/custom_breadcrumbs'] { 
-   background: url(admin_icons/structure-custom_breadcrumbs.png) no-repeat 0 50%;
-}
 
 /**
  * Configuration - User Interface
@@ -78,9 +72,6 @@
 }
 .content .admin-list a[href $='admin/config/user-interface/shortcut'] {
    background: url(admin_icons/user-interface-shortcut.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/user-interface/custom-breadcrumbs'] {
-   background: url(admin_icons/user-interface-custom_breadcrumbs.png) no-repeat 0 50%;
 }
 
 /**
@@ -95,11 +86,8 @@
 .content .admin-list a[href $='admin/config/system/cron'] { 
    background: url(admin_icons/system-cron.png) no-repeat 0 50%;
 }
-.content .admin-list a[href $='admin/config/system/site-information'] { 
+.content .admin-panel a[href $='admin/config/system/site-information'] { 
    background: url(admin_icons/system-site-information.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/system/googleanalytics'] { 
-   background: url(admin_icons/system-googleanalytics.png) no-repeat 0 50%;
 }
 
 /**
@@ -130,15 +118,6 @@
 }
 .content .admin-list a[href $='admin/config/development/maintenance'] { 
    background: url(admin_icons/development-maintenance.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/development/devel'] { 
-   background: url(admin_icons/development-devel.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/development/logging'] { 
-   background: url(admin_icons/development-logging.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/development/jquery_update'] { 
-   background: url(admin_icons/development-jqueryupdate.png) no-repeat 0 50%;
 }
 
 /**
@@ -175,9 +154,6 @@
 }
 .content .admin-list a[href $='admin/config/search/path'] { 
    background: url(admin_icons/search-path.png) no-repeat 0 50%;
-}
-.content .admin-list a[href $='admin/config/search/redirect'] { 
-   background: url(admin_icons/search-redirect.png) no-repeat 0 50%;
 }
 
 /**

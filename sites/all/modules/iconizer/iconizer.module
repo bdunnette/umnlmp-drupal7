@@ -27,15 +27,15 @@ function iconizer_help($path, $arg) {
  * Valid permissions for this module
  * @return array An array of valid permissions for the onthisdate module
  */
-function iconizer_permission() {
+function iconizer_perm() {
   return  array(
     'display iconizer links' => array(
       'title' => t('Display iconizer links'),
-      'description' => t('Allow to display icons near links (admin, files, and protocols)'),
+      'description' => t(''),
     ),
     'manage iconizer settings' => array (
       'title' => t('Manage iconizer settings'),
-      'description' => t('Allow users to manage iconizer settings'),
+      'description' => t(''),
     )
   );
 }

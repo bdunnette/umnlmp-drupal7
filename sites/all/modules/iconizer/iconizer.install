@@ -5,15 +5,9 @@
  * Install functions for Iconizer Module
  */
 
-/**
- * Implementing hook_install()
- */
 function iconizer_install() {
 }
 
-/**
- * Implementing hook_uninstall()
- */
 function iconizer_uninstall() {
   // cleaning variables setted
   variable_del('iconizer_themes_enable');
@@ -26,6 +20,5 @@ function iconizer_uninstall() {
   variable_del('iconizer_files_icons_theme');
   variable_del('iconizer_proto_icons');
   variable_del('iconizer_proto_icons_theme');
-  variable_del('iconizer_override_file_icon_directory');
-  variable_del('iconizer_old_file_icon_directory');
+
 }
